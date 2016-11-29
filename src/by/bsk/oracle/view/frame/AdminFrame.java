@@ -3,6 +3,8 @@ package by.bsk.oracle.view.frame;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.ResourceBundle;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -17,7 +19,11 @@ import by.bsk.oracle.command.ShowJTable;
 import by.bsk.oracle.command.UpdateUserCommand;
 import by.bsk.oracle.command.mouse.ClickCommand;
 import by.bsk.oracle.domain.User;
+import by.bsk.oracle.view.form.AddUserDialog;
+import by.bsk.oracle.view.form.DeleteUserDialog;
 import by.bsk.oracle.view.util.CheckAccess;
+import by.bsk.oracle.view.util.Field;
+import by.bsk.oracle.view.util.GifPlace;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -61,6 +67,11 @@ public class AdminFrame extends JFrame {
 	private JButton btnDeleteUser1;
 	private JButton btnAddUser1;
 
+	private JToolBar toolBar;
+	private JButton btnAddUser;
+	private JButton btnUpdateUser;
+	private JButton btnDeleteUser;
+
 	private MouseAdapter click;
 
 	private static AdminFrame adminFrame;
@@ -68,7 +79,15 @@ public class AdminFrame extends JFrame {
 	private ActionListener updateUser;
 	private ActionListener deleteUser;
 	private ActionListener addUser;
-	private JMenuItem mntmNewMenuItem_2;
+
+	private JMenuBar menuBar;
+	private JMenu mnForUser;
+	private JMenuItem mAddUser;
+	private JMenuItem mUpdateUser;
+	private JMenuItem mDeleteUser;
+	private JMenuItem mHide;
+	private JMenuItem mInfo;
+	private JMenuItem mHide1;
 
 	private AdminFrame() {
 		try {
@@ -76,42 +95,45 @@ public class AdminFrame extends JFrame {
 			inputStream = new ObjectInputStream(fis);
 			User user = (User) inputStream.readObject();
 
+			ResourceBundle resourceBundle = ResourceBundle.getBundle(Field.BUNDLE_NAME);
+
 			setTitle(user.getDivision().getName());
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			setBounds(100, 100, 1291, 700);
+			setBounds(100, 100, 1180, 700);
 
-			JMenuBar menuBar = new JMenuBar();
+			menuBar = new JMenuBar();
 			setJMenuBar(menuBar);
 
-			JMenu mnNewMenu = new JMenu(
-					"\u0420\u0430\u0431\u043E\u0442\u0430 \u0441 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F\u043C\u0438");
-			menuBar.add(mnNewMenu);
+			mnForUser = new JMenu(resourceBundle.getString(Field.MENU_FOR_USER));
+			menuBar.add(mnForUser);
 
-			JMenuItem mntmNewMenuItem = new JMenuItem("\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C");
-			mnNewMenu.add(mntmNewMenuItem);
+			mAddUser = new JMenuItem(resourceBundle.getString(Field.ADD_USER));
+			mnForUser.add(mAddUser);
 
-			JMenuItem menuItem_1 = new JMenuItem("\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C");
-			mnNewMenu.add(menuItem_1);
+			mUpdateUser = new JMenuItem(resourceBundle.getString(Field.UPDATE_USER));
+			mnForUser.add(mUpdateUser);
 
-			JMenuItem menuItem = new JMenuItem("\u0423\u0434\u0430\u043B\u0438\u0442\u044C");
-			mnNewMenu.add(menuItem);
+			mDeleteUser = new JMenuItem(resourceBundle.getString(Field.DELETE_USER));
+			mnForUser.add(mDeleteUser);
 
-			JMenuItem mntmHide = new JMenuItem("");
-			menuBar.add(mntmHide);
+			mHide = new JMenuItem("");
+			menuBar.add(mHide);
 
-			mntmNewMenuItem_2 = new JMenuItem("");
-			menuBar.add(mntmNewMenuItem_2);
+			mHide1 = new JMenuItem("");
+			menuBar.add(mHide1);
+
 			String access = CheckAccess.checkAccess(user.getAccess());
-			JMenuItem mntmNewMenuItem_1 = new JMenuItem("Логин: " + user.getLogin() + "     Уровень дотупа: " + access);
-			mntmNewMenuItem_1.setHorizontalAlignment(SwingConstants.LEFT);
-			menuBar.add(mntmNewMenuItem_1);
+			mInfo = new JMenuItem(resourceBundle.getString(Field.LOGIN) + " " + user.getLogin() + "         "
+					+ resourceBundle.getString(Field.ACCESS) + " " + access);
+			mInfo.setHorizontalAlignment(SwingConstants.LEFT);
+			menuBar.add(mInfo);
 			contentPane = new JPanel();
 			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 			setContentPane(contentPane);
 			contentPane.setLayout(null);
 
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(343, 82, 918, 501);
+			scrollPane.setBounds(0, 60, 1150, 501);
 			contentPane.add(scrollPane);
 
 			tModel = new DefaultTableModel();
@@ -128,7 +150,7 @@ public class AdminFrame extends JFrame {
 
 			panel = new JPanel();
 			panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-			panel.setBounds(0, 94, 296, 501);
+			panel.setBounds(0, 574, 296, 21);
 			contentPane.add(panel);
 			panel.setLayout(null);
 
@@ -147,76 +169,74 @@ public class AdminFrame extends JFrame {
 			tPassword.setBounds(87, 76, 197, 39);
 			panel.add(tPassword);
 
-			lblLogin = new JLabel("\u041B\u043E\u0433\u0438\u043D:");
+			lblLogin = new JLabel(resourceBundle.getString(Field.LBL_LOGIN));
 			lblLogin.setBounds(12, 24, 56, 16);
 			panel.add(lblLogin);
 
-			lblPassword = new JLabel("\u041F\u0430\u0440\u043E\u043B\u044C:");
+			lblPassword = new JLabel(resourceBundle.getString(Field.LBL_PASSWORD));
 			lblPassword.setBounds(12, 87, 56, 16);
 			panel.add(lblPassword);
 
-			btnUpdateUser1 = new JButton(
-					"\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F");
+			btnUpdateUser1 = new JButton("");
 			btnUpdateUser1.setEnabled(false);
 			updateUser = new UpdateUserCommand(tLogin, tPassword, table, lblInfo, tModel);
 			btnUpdateUser1.addActionListener(updateUser);
 			btnUpdateUser1.setBounds(47, 294, 195, 66);
 			panel.add(btnUpdateUser1);
 
-			btnDeleteUser1 = new JButton(
-					"\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F");
+			btnDeleteUser1 = new JButton("");
 			btnDeleteUser1.setEnabled(false);
 			deleteUser = new DeleteUserCommand(table, tModel, lblInfo);
 			btnDeleteUser1.addActionListener(deleteUser);
 			btnDeleteUser1.setBounds(47, 406, 195, 66);
 			panel.add(btnDeleteUser1);
 
-			btnAddUser1 = new JButton(
-					"\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F");
-			addUser = new AddUserCommand(tLogin, tPassword, lblInfo, table, tModel, user.getDivision().getIdDivision());
-			btnAddUser1.addActionListener(addUser);
+			btnAddUser1 = new JButton("");
+			// /addUser = new AddUserCommand(tLogin, tPassword, lblInfo, table,
+			// tModel, user.getDivision().getIdDivision());
+			// btnAddUser1.addActionListener(addUser);
 			btnAddUser1.setBounds(47, 178, 195, 66);
 			panel.add(btnAddUser1);
 
 			lblDivision = new JLabel(user.getDivision().getName());
 			lblDivision.setFont(new Font("Tahoma", Font.BOLD, 19));
-			lblDivision.setBounds(344, 37, 314, 32);
+			lblDivision.setBounds(10, 27, 314, 32);
 			contentPane.add(lblDivision);
 
 			click = new ClickCommand(tLogin, tPassword, table, tModel, btnDeleteUser1, btnUpdateUser1);
 
-			JToolBar toolBar = new JToolBar();
+			toolBar = new JToolBar();
 			toolBar.setBounds(0, 0, 1273, 32);
 			contentPane.add(toolBar);
 
-			JButton btnAddUser = new JButton("");
-			btnAddUser.setToolTipText(
-					"\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F");
+			btnAddUser = new JButton("");
 			btnAddUser.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					AddUserDialog addUser = new AddUserDialog(table, tModel, user.getDivision().getIdDivision());
+					addUser.setVisible(true);
 				}
 			});
-			btnAddUser.setIcon(new ImageIcon(AdminFrame.class.getResource("/icon/add_obj.gif")));
+			btnAddUser.setToolTipText(resourceBundle.getString(Field.ADD_INFO));
+
+			btnAddUser.setIcon(new ImageIcon(AdminFrame.class.getResource(GifPlace.GIF_ADD)));
 			toolBar.add(btnAddUser);
 
-			JButton btnUpdateUser = new JButton("");
-			btnUpdateUser.setToolTipText(
-					"\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F");
-			btnUpdateUser.setIcon(new ImageIcon(AdminFrame.class.getResource("/icon/edit.gif")));
+			btnUpdateUser = new JButton("");
+			btnUpdateUser.setToolTipText(resourceBundle.getString(Field.UPDATE_INFO));
+			btnUpdateUser.setIcon(new ImageIcon(AdminFrame.class.getResource(GifPlace.GIF_UPDATE)));
 			toolBar.add(btnUpdateUser);
 
-			JButton btnWatch = new JButton("");
-			btnWatch.setToolTipText(
-					"\u041F\u043E\u0441\u043C\u043E\u0442\u0440\u0435\u0442\u044C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u043E \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u0435");
-			btnWatch.setIcon(new ImageIcon(AdminFrame.class.getResource("/icon/details.gif")));
-			toolBar.add(btnWatch);
-
-			JButton btnNewButton = new JButton("");
-			btnNewButton.setToolTipText(
-					"\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F");
-			btnNewButton.setIcon(new ImageIcon(AdminFrame.class.getResource("/icon/remove.gif")));
-			btnNewButton.setHorizontalAlignment(SwingConstants.RIGHT);
-			toolBar.add(btnNewButton);
+			btnDeleteUser = new JButton("");
+			btnDeleteUser.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					DeleteUserDialog deleteUser = new DeleteUserDialog(table, tModel);
+					deleteUser.setVisible(true);
+				}
+			});
+			btnDeleteUser.setToolTipText(resourceBundle.getString(Field.DELETE_INFO));
+			btnDeleteUser.setIcon(new ImageIcon(AdminFrame.class.getResource(GifPlace.GIF_DELETE)));
+			btnDeleteUser.setHorizontalAlignment(SwingConstants.RIGHT);
+			toolBar.add(btnDeleteUser);
 			table.addMouseListener(click);
 
 		} catch (Exception e) {

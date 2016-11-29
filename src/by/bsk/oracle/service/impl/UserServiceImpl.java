@@ -12,12 +12,14 @@ import by.bsk.oracle.domain.Division;
 import by.bsk.oracle.domain.User;
 import by.bsk.oracle.service.UserService;
 import by.bsk.oracle.service.exception.ServiceException;
+import by.bsk.oracle.service.parser.Parser;
+import by.bsk.oracle.service.parser.exception.ParserException;
 
 public class UserServiceImpl implements UserService {
 	private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
 
 	@Override
-	public void addUser(String login, String password, int idDivision) throws ServiceException {
+	public void addUser(String login, String password, String access, int idDivision) throws ServiceException {
 		try {
 			logger.debug("addUser() login={}, password={}, idDivision={}", login, password, idDivision);
 			DAOFactory daoFactory = DAOFactory.getInstance();
@@ -25,12 +27,15 @@ public class UserServiceImpl implements UserService {
 			User user = new User();
 			user.setLogin(login);
 			user.setPassword(password);
+			user.setAccess(Parser.fromStringToAccess(access));
 			Division division = new Division();
 			division.setIdDivision(idDivision);
 			user.setDivision(division);
 			userDAO.add(user);
 		} catch (DAOException e) {
 			throw new ServiceException("Service layer: can't do add user operation", e);
+		} catch (ParserException e) {
+			throw new ServiceException("Serice layer: can't parse access", e);
 		}
 
 	}

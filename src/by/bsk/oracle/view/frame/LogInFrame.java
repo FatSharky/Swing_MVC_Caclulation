@@ -5,6 +5,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import by.bsk.oracle.command.LogInUserCommand;
+import by.bsk.oracle.view.util.Field;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -17,28 +19,25 @@ import java.awt.Color;
 public class LogInFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private static final String BUNDLE_NAME = "resource.locale";
-	private static final String APPLICATION_TITLE = "logInFrame.title";
-	private static final String LBL_LOGIN="logInFrame.lblLogin";
-	
+
 	private JPanel contentPane;
-	
+
 	private JTextField tLogin;
 	private JTextField tPassword;
-	
+
 	private JLabel lblLogin;
 	private JLabel lblPassword;
-	
+
 	private JButton btnLogIn;
-	
+
 	private JLabel lblInfro;
-	
+
 	private static LogInFrame logIn;
 
 	private LogInFrame() {
-		ResourceBundle resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME);
-		
-		setTitle(resourceBundle.getString(APPLICATION_TITLE));
+		ResourceBundle resourceBundle = ResourceBundle.getBundle(Field.BUNDLE_NAME);
+
+		setTitle(resourceBundle.getString(Field.APPLICATION_TITLE));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 
@@ -47,11 +46,11 @@ public class LogInFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		lblLogin = new JLabel(resourceBundle.getString(LBL_LOGIN));
+		lblLogin = new JLabel(resourceBundle.getString(Field.LBL_LOGIN));
 		lblLogin.setBounds(67, 48, 56, 16);
 		contentPane.add(lblLogin);
 
-		lblPassword = new JLabel("\u041F\u0430\u0440\u043E\u043B\u044C:");
+		lblPassword = new JLabel(resourceBundle.getString(Field.LBL_PASSWORD));
 		lblPassword.setBounds(67, 110, 56, 16);
 		contentPane.add(lblPassword);
 
@@ -72,7 +71,7 @@ public class LogInFrame extends JFrame {
 		lblInfro.setBounds(67, 149, 313, 28);
 		contentPane.add(lblInfro);
 
-		btnLogIn = new JButton("\u0412\u043E\u0439\u0442\u0438");
+		btnLogIn = new JButton(resourceBundle.getString(Field.BTN_LOGIN));
 		ActionListener command = new LogInUserCommand(tLogin, tPassword, lblInfro, logIn);
 		btnLogIn.addActionListener(command);
 

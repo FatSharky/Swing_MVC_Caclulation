@@ -3,22 +3,22 @@ package by.bsk.oracle.domain;
 public enum Access {
 	FULL {
 		{
-			currencyAccess = "full";
+			currencyAccess = "Полный";
 		}
 	},
 	WATCH {
 		{
-			currencyAccess = "watch";
+			currencyAccess = "Просмотр";
 		}
 	},
 	ADD_UPDATE {
 		{
-			currencyAccess = "add update";
+			currencyAccess = "Добавление и изменение";
 		}
 	},
 	DELETE {
 		{
-			currencyAccess = "delete";
+			currencyAccess = "Удаление";
 		}
 	};
 

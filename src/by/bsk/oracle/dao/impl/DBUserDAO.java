@@ -28,7 +28,7 @@ public class DBUserDAO implements UserDAO {
 
 	private static final Logger logger = LogManager.getLogger(DBUserDAO.class);
 
-	private static final String SQL_ADD_USER = "INSERT INTO user (login, password, id_division, role) VALUES (?, ?, ?, 'user');";
+	private static final String SQL_ADD_USER = "INSERT INTO user (login, password, id_division, access, role) VALUES (?, ?, ?, ?, 'user');";
 	private static final String SQL_UPDATE_USER = "UPDATE user SET login=?, password=?, access=? WHERE id_user=?;";
 	private static final String SQL_DELETE_USER = "DELETE FROM user WHERE id_user=?;";
 	private static final String SQL_ADD_ADMIN = "INSERT INTO user (login, password, id_division, role) VALUES (?, ?, ? 'admin');";
@@ -50,6 +50,7 @@ public class DBUserDAO implements UserDAO {
 			ps.setString(1, entity.getLogin());
 			ps.setString(2, entity.getPassword());
 			ps.setInt(3, entity.getDivision().getIdDivision());
+			ps.setString(4, entity.getAccess().toString().toLowerCase().replace('_', ' '));
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			throw new DAOException("DAO layer: Faild create new user: ", e);
