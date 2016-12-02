@@ -17,6 +17,7 @@ import by.bsk.oracle.service.UserService;
 import by.bsk.oracle.service.exception.ServiceException;
 import by.bsk.oracle.service.factory.ServiceFactory;
 import by.bsk.oracle.view.frame.AdminFrame;
+import by.bsk.oracle.view.frame.LogInFrame;
 import by.bsk.oracle.view.frame.RootAdminFrame;
 import by.bsk.oracle.view.frame.UserFrame;
 
@@ -24,15 +25,13 @@ public class LogInUserCommand implements ActionListener {
 
 	private JTextField jLogin = new JTextField();
 	private JTextField jPassword = new JTextField();
-	private JFrame jAdminFrame = new JFrame();
 	private JLabel jLabel = new JLabel();
 
-	public LogInUserCommand(JTextField jLogin, JTextField jPassword, JLabel jLabel, JFrame jAdminFrame) {
+	public LogInUserCommand(JTextField jLogin, JTextField jPassword, JLabel jLabel) {
 		super();
 		this.jLogin = jLogin;
 		this.jPassword = jPassword;
 		this.jLabel = jLabel;
-		this.jAdminFrame = jAdminFrame;
 
 	}
 
@@ -60,12 +59,12 @@ public class LogInUserCommand implements ActionListener {
 						adminFrame.setVisible(true);
 						jLabel.setText("");
 					} else if (user.getRole().equals("user")) {
-						JFrame userFrame = new UserFrame();
+						JFrame userFrame = UserFrame.getInstance();
 						userFrame.setVisible(true);
 						jLabel.setText("");
 					}
 				}
-				// jAdminFrame.setVisible(false);
+				LogInFrame.closeWindow();
 			} else {
 				jLabel.setForeground(Color.RED);
 				jLabel.setText("ѕользовател€ с таким именем не существует");

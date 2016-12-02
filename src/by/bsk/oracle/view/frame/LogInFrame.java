@@ -14,7 +14,6 @@ import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 
 import javax.swing.SwingConstants;
-import java.awt.Color;
 
 public class LogInFrame extends JFrame {
 
@@ -34,13 +33,21 @@ public class LogInFrame extends JFrame {
 
 	private static LogInFrame logIn;
 
-	private LogInFrame() {
-		ResourceBundle resourceBundle = ResourceBundle.getBundle(Field.BUNDLE_NAME);
+	private ResourceBundle resourceBundle = ResourceBundle.getBundle(Field.BUNDLE_NAME);
+	private ActionListener command;
 
+	private LogInFrame() {
+		configure();
+		createFrame();
+	}
+
+	private void configure() {
 		setTitle(resourceBundle.getString(Field.APPLICATION_TITLE));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+	}
 
+	private void createFrame() {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -66,13 +73,12 @@ public class LogInFrame extends JFrame {
 		tPassword.setColumns(10);
 
 		lblInfro = new JLabel();
-		lblInfro.setForeground(Color.RED);
 		lblInfro.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInfro.setBounds(67, 149, 313, 28);
 		contentPane.add(lblInfro);
 
 		btnLogIn = new JButton(resourceBundle.getString(Field.BTN_LOGIN));
-		ActionListener command = new LogInUserCommand(tLogin, tPassword, lblInfro, logIn);
+		command = new LogInUserCommand(tLogin, tPassword, lblInfro);
 		btnLogIn.addActionListener(command);
 
 		btnLogIn.setBounds(147, 191, 133, 49);
@@ -88,5 +94,13 @@ public class LogInFrame extends JFrame {
 			}
 		}
 		return logIn;
+	}
+
+	public static void closeWindow() {
+		logIn.setVisible(false);
+	}
+
+	public static void openWindow() {
+		logIn.setVisible(true);
 	}
 }

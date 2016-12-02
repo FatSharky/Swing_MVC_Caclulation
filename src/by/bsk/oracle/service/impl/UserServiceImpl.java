@@ -12,14 +12,26 @@ import by.bsk.oracle.domain.Division;
 import by.bsk.oracle.domain.User;
 import by.bsk.oracle.service.UserService;
 import by.bsk.oracle.service.exception.ServiceException;
+import by.bsk.oracle.service.exception.user.WrongLoginServiceException;
+import by.bsk.oracle.service.exception.user.WrongPasswordServiceException;
 import by.bsk.oracle.service.parser.Parser;
 import by.bsk.oracle.service.parser.exception.ParserException;
+import by.bsk.oracle.service.validation.Validation;
 
 public class UserServiceImpl implements UserService {
 	private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
 
 	@Override
 	public void addUser(String login, String password, String access, int idDivision) throws ServiceException {
+		System.out.println(login.length());
+		System.out.println(password.length());
+		if (Validation.validateMultyTextField(login)) {
+			throw new WrongLoginServiceException("Wrong login");
+		}
+		
+		if (Validation.validateMultyTextField(password)) {
+			throw new WrongPasswordServiceException("Wrong password");
+		}
 		try {
 			logger.debug("addUser() login={}, password={}, idDivision={}", login, password, idDivision);
 			DAOFactory daoFactory = DAOFactory.getInstance();

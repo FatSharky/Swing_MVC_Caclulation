@@ -7,7 +7,9 @@ import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
+import by.bsk.oracle.domain.PriceCategory;
 import by.bsk.oracle.domain.User;
+import by.bsk.oracle.service.PriceCategorySevice;
 import by.bsk.oracle.service.UserService;
 import by.bsk.oracle.service.factory.ServiceFactory;
 import by.bsk.oracle.view.util.CheckAccess;
@@ -134,5 +136,28 @@ public class ShowJTable {
 		}
 		return tModel;
 
+	}
+
+	static public DefaultTableModel priceCategoryTable(int idDivision) {
+
+		DefaultTableModel tModel = null;
+		try {
+			String[] top = new String[] { "ID", "Наименование" };
+			tModel = new DefaultTableModel();
+			tModel.setColumnIdentifiers(top);
+			List<PriceCategory> priceCategories = null;
+			ServiceFactory serviceFactor = ServiceFactory.getInstance();
+			PriceCategorySevice priceCategorySevice = serviceFactor.getPriceCategory();
+			priceCategories = priceCategorySevice.selectCategoryByIdDivision(idDivision);
+			for (int i = 0; i < priceCategories.size(); i++) {
+				int id = priceCategories.get(i).getIdPrice();
+				String name = priceCategories.get(i).getName();
+				Object[] data = { id, name };
+				tModel.insertRow(i, data);
+			}
+		} catch (Exception e) {
+			
+		}
+		return tModel;
 	}
 }

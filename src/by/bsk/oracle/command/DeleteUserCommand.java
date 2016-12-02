@@ -18,10 +18,10 @@ public class DeleteUserCommand implements ActionListener {
 	private JLabel jLabel = new JLabel();
 	private DefaultTableModel tModel = new DefaultTableModel();
 
-	public DeleteUserCommand(JTable jTable, DefaultTableModel tModel, JLabel jLabel) {
+	public DeleteUserCommand(JTable jTable, DefaultTableModel tModel) {
 		this.jTable = jTable;
 		this.tModel = tModel;
-		this.jLabel = jLabel;
+		
 	}
 
 	@Override

@@ -13,7 +13,11 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 import by.bsk.oracle.command.AddUserCommand;
+import by.bsk.oracle.view.util.Field;
+
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
+
 import javax.swing.SwingConstants;
 
 public class AddUserDialog extends JDialog {
@@ -27,33 +31,36 @@ public class AddUserDialog extends JDialog {
 	private DefaultTableModel jTableModel;
 	private ActionListener addUser;
 	private int idDivision;
+	private ResourceBundle resourceBundle = ResourceBundle.getBundle(Field.BUNDLE_NAME);
 
 	public AddUserDialog(JTable jTable, DefaultTableModel jTableModel, int idDivision) {
 		super();
 		this.jTable = jTable;
 		this.jTableModel = jTableModel;
 		this.idDivision = idDivision;
+		configure();
 		initComponents();
 	}
 
-	private void initComponents() {
-		setTitle(
-				"\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044F");
+	private void configure() {
+		setTitle(resourceBundle.getString(Field.ADD_DIALOG));
 		setBounds(100, 100, 446, 248);
 		getContentPane().setLayout(new BorderLayout());
+	}
+
+	private void initComponents() {
+
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		{
-			JLabel lblUserLogin = new JLabel("\u041B\u043E\u0433\u0438\u043D:");
-			lblUserLogin.setBounds(88, 13, 56, 16);
-			contentPanel.add(lblUserLogin);
-		}
-		{
-			JLabel lblUserPassword = new JLabel("\u041F\u0430\u0440\u043E\u043B\u044C:");
-			lblUserPassword.setBounds(88, 48, 56, 16);
-			contentPanel.add(lblUserPassword);
-		}
+
+		JLabel lblUserLogin = new JLabel(resourceBundle.getString(Field.LBL_LOGIN));
+		lblUserLogin.setBounds(88, 13, 56, 16);
+		contentPanel.add(lblUserLogin);
+
+		JLabel lblUserPassword = new JLabel(resourceBundle.getString(Field.LBL_PASSWORD));
+		lblUserPassword.setBounds(88, 48, 56, 16);
+		contentPanel.add(lblUserPassword);
 
 		tLogin = new JTextField();
 		tLogin.setBounds(156, 10, 151, 22);
@@ -66,12 +73,14 @@ public class AddUserDialog extends JDialog {
 		tPassword.setColumns(10);
 
 		JComboBox<String> comboBox = new JComboBox<String>();
-		String[] args = new String[] { "Полный", "Добавление и изменение", "Удаление", "Просмотр" };
+		String[] args = new String[] { resourceBundle.getString(Field.DADD_FULL),
+				resourceBundle.getString(Field.DADD_ADD_UPDATE), resourceBundle.getString(Field.DADD_DELETE),
+				resourceBundle.getString(Field.DADD_WATCH) };
 		comboBox.setModel(new DefaultComboBoxModel<String>(args));
 		comboBox.setBounds(156, 80, 151, 22);
 		contentPanel.add(comboBox);
 
-		JLabel lblAccess = new JLabel("\u0414\u043E\u0441\u0442\u0443\u043F:");
+		JLabel lblAccess = new JLabel(resourceBundle.getString(Field.ACCESS));
 		lblAccess.setBounds(88, 83, 56, 16);
 		contentPanel.add(lblAccess);
 
@@ -80,7 +89,7 @@ public class AddUserDialog extends JDialog {
 		lblInfo.setBounds(55, 103, 309, 47);
 		contentPanel.add(lblInfo);
 
-		JButton btnAddUser = new JButton("\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C");
+		JButton btnAddUser = new JButton(resourceBundle.getString(Field.DADD_ADD_BUTTON));
 		addUser = new AddUserCommand(tLogin, tPassword, lblInfo, jTable, jTableModel, comboBox, idDivision);
 		btnAddUser.addActionListener(addUser);
 		btnAddUser.setBounds(150, 152, 114, 36);

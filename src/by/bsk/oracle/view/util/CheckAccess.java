@@ -13,7 +13,6 @@ public final class CheckAccess {
 		case FULL:
 			returnAccess = "Полный доступ";
 			break;
-
 		case WATCH:
 			returnAccess = "Только просмотр";
 			break;

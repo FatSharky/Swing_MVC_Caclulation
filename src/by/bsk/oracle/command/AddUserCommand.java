@@ -5,15 +5,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import by.bsk.oracle.domain.User;
 import by.bsk.oracle.service.UserService;
+import by.bsk.oracle.service.exception.user.WrongLoginServiceException;
+import by.bsk.oracle.service.exception.user.WrongPasswordServiceException;
 import by.bsk.oracle.service.factory.ServiceFactory;
-import by.bsk.oracle.view.util.CheckAccess;
 
 public class AddUserCommand implements ActionListener {
 	private JTextField jLogin;
@@ -49,11 +49,8 @@ public class AddUserCommand implements ActionListener {
 				userService.addUser(login, password, access, idDivision);
 				user = userService.selectUserByLoginAndPass(login, password);
 				int id = user.getIdUser();
-				String aLogin = user.getLogin();
-				String aPassword = user.getPassword();
 				String role = user.getRole();
-				String aAccess = CheckAccess.checkAccess(user.getAccess());
-				Object[] data = { id, aLogin, aPassword, role, aAccess };
+				Object[] data = { id, login, password, role, access };
 				jTableModel.insertRow(jTable.getRowCount(), data);
 				jLabel.setForeground(Color.GREEN);
 				jLabel.setText("Пользователь успешно добавлен");
@@ -69,6 +66,12 @@ public class AddUserCommand implements ActionListener {
 				jLabel.setText("Пользователь уже существует в базе данных");
 
 			}
+		} catch (WrongLoginServiceException e) {
+			jLabel.setForeground(Color.RED);
+			jLabel.setText("Логин пользователя не должен быть пустым или >10 символов");
+		} catch (WrongPasswordServiceException e) {
+			jLabel.setForeground(Color.RED);
+			jLabel.setText("Пароль пользователя не должен быть пустым или >10 символов");
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

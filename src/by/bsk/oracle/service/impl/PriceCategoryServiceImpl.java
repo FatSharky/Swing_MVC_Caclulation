@@ -22,7 +22,7 @@ public class PriceCategoryServiceImpl implements PriceCategorySevice {
 			DAOFactory daoFactory = DAOFactory.getInstance();
 			PriceCategoryDAO priceCategoryDAO = daoFactory.getPriceCategoryDAO();
 			PriceCategory category = new PriceCategory();
-			category.setIdPrice(Integer.valueOf(idDivision));
+			category.setIdDivision(Integer.valueOf(idDivision));
 			category.setName(name);
 			priceCategoryDAO.add(category);
 		} catch (DAOException e) {
