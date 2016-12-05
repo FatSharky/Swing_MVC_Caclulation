@@ -2,9 +2,13 @@ package by.bsk.oracle.service.factory;
 
 import by.bsk.oracle.service.DivisionService;
 import by.bsk.oracle.service.PriceCategorySevice;
+import by.bsk.oracle.service.ProductCategoryService;
+import by.bsk.oracle.service.StructuralUnitService;
 import by.bsk.oracle.service.UserService;
 import by.bsk.oracle.service.impl.DivisionServiceImpl;
 import by.bsk.oracle.service.impl.PriceCategoryServiceImpl;
+import by.bsk.oracle.service.impl.ProductCategoryServiceImpl;
+import by.bsk.oracle.service.impl.StructuralUnitServiceImpl;
 import by.bsk.oracle.service.impl.UserServiceImpl;
 
 public class ServiceFactory {
@@ -17,6 +21,8 @@ public class ServiceFactory {
 	private final UserService userService = new UserServiceImpl();
 	private final DivisionService divisionService = new DivisionServiceImpl();
 	private final PriceCategorySevice priceCategorySevice = new PriceCategoryServiceImpl();
+	private final StructuralUnitService structuralUnitService = new StructuralUnitServiceImpl();
+	private final ProductCategoryService productCategoryService = new ProductCategoryServiceImpl();
 
 	public static ServiceFactory getInstance() {
 		return INSTANCE;
@@ -32,6 +38,14 @@ public class ServiceFactory {
 
 	public PriceCategorySevice getPriceCategory() {
 		return priceCategorySevice;
+	}
+
+	public StructuralUnitService getStructuralUnit() {
+		return structuralUnitService;
+	}
+
+	public ProductCategoryService getProductCategory() {
+		return productCategoryService;
 	}
 
 }

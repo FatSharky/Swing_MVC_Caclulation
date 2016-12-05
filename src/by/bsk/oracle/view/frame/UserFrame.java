@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 
 import by.bsk.oracle.domain.User;
 import by.bsk.oracle.view.panel.PriceCategoryPanel;
+import by.bsk.oracle.view.panel.StructuralUnitPanel;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -15,7 +16,6 @@ import java.io.ObjectInputStream;
 import javax.swing.JMenuItem;
 import javax.swing.JToolBar;
 import javax.swing.JButton;
-import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -41,6 +41,10 @@ public class UserFrame extends JFrame {
 	private JButton btnNewButton;
 
 	private PriceCategoryPanel pPrice;
+	private StructuralUnitPanel pUnit;
+	private JButton btnStructuralUnit;
+
+	private JMenuItem mStructuralUnit;
 
 	private UserFrame() {
 		readUser();
@@ -82,6 +86,10 @@ public class UserFrame extends JFrame {
 		mPriceCategory = new JMenuItem(
 				"\u041D\u0430\u0446\u0435\u043D\u043E\u0447\u043D\u044B\u0435 \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438");
 		mDirectory.add(mPriceCategory);
+
+		mStructuralUnit = new JMenuItem(
+				"\u0421\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u043D\u044B\u0435 \u043F\u043E\u0434\u0440\u0430\u0437\u0434\u0435\u043B\u043D\u0435\u0438\u044F");
+		mDirectory.add(mStructuralUnit);
 		contentPaneFist = new JPanel();
 		contentPaneFist.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPaneFist);
@@ -91,6 +99,10 @@ public class UserFrame extends JFrame {
 		pPrice.setBounds(10, 42, 1241, 503);
 		contentPaneFist.add(pPrice);
 		pPrice.setVisible(false);
+
+		pUnit = new StructuralUnitPanel();
+		pUnit.setBounds(10, 42, 1241, 503);
+		contentPaneFist.add(pUnit);
 
 		toolBar = new JToolBar();
 		toolBar.setBounds(0, 0, 1261, 36);
@@ -102,6 +114,11 @@ public class UserFrame extends JFrame {
 
 		toolBar.add(btnNewButton);
 
+		btnStructuralUnit = new JButton(
+				"\u0421\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u043D\u044B\u0435 \u043F\u043E\u0434\u0440\u0430\u0437\u0434\u0435\u043B\u0435\u043D\u0438\u044F");
+
+		toolBar.add(btnStructuralUnit);
+
 	}
 
 	private void registerListeners(User user) {
@@ -109,13 +126,31 @@ public class UserFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				pPrice.setVisible(true);
+				pUnit.setVisible(false);
 			}
 		});
 
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				pUnit.setVisible(false);
 				pPrice.setVisible(true);
+			}
+		});
+		btnStructuralUnit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				pUnit = new StructuralUnitPanel();
+				contentPaneFist.add(pUnit);
+				pUnit.setVisible(true);
+				pPrice.setVisible(false);
+			}
+		});
+		mStructuralUnit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				pUnit = new StructuralUnitPanel();
+				contentPaneFist.add(pUnit);
+				pPrice.setVisible(false);
+				pUnit.setVisible(true);
 			}
 		});
 	}

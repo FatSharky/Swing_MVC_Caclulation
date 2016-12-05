@@ -18,7 +18,10 @@ import by.bsk.oracle.domain.StructuralUnit;
 public class DBStructuralUnitDAO implements StructuralUnitDAO {
 	private static final Logger logger = LogManager.getLogger(DBStructuralUnitDAO.class);
 
-	private static final String SQL_ADD_UNIT = "INSERT INTO stuctural_units (name, markup, tax, fare, discount, allowance, id_price) VALUES (?, ?, ?, ?, ?, ?, ?);";
+	// private static final String SQL_ADD_UNIT = "INSERT INTO stuctural_units
+	// (name, markup, tax, fare, discount, allowance, id_price) VALUES (?, ?, ?,
+	// ?, ?, ?, ?);";
+	private static final String SQL_ADD_UNIT_2 = "INSERT INTO stuctural_units (name, markup, tax, fare, discount, allowance, id_price) VALUES (?, ?, ?, ?, ?, ?, ?);";
 	private static final String SQL_UPDATE_UNIT = "UPDATE stuctural_units SET name=?, markup=?, tax= ?, fare=?, discount=?, allowance= ? WHERE id_units=?;";
 	private static final String SQL_DELETE_UNIT = "DELETE FROM stuctural_units WHERE id_units=?;";
 	private static final String SQL_SELECT_UNIT_BY_ID_PRICE = "SELECT * FROM stuctural_units WHERE id_price=?;";
@@ -30,14 +33,14 @@ public class DBStructuralUnitDAO implements StructuralUnitDAO {
 		PreparedStatement ps = null;
 		try {
 			conn = DBUtil.getInstance().openConnection();
-			ps = conn.prepareStatement(SQL_ADD_UNIT);
+			ps = conn.prepareStatement(SQL_ADD_UNIT_2);
 			ps.setString(1, entity.getName());
-			ps.setDouble(3, entity.getMarkUp());
-			ps.setDouble(4, entity.getTax());
-			ps.setDouble(5, entity.getFare());
-			ps.setDouble(6, entity.getDiscount());
-			ps.setDouble(7, entity.getAllowance());
-			ps.setInt(8, entity.getIdPrice());
+			ps.setDouble(2, entity.getMarkUp());
+			ps.setDouble(3, entity.getTax());
+			ps.setDouble(4, entity.getFare());
+			ps.setDouble(5, entity.getDiscount());
+			ps.setDouble(6, entity.getAllowance());
+			ps.setInt(7, entity.getIdPrice());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			throw new DAOException("DAO layer: Faild create new structural unit: ", e);
@@ -47,6 +50,7 @@ public class DBStructuralUnitDAO implements StructuralUnitDAO {
 					ps.close();
 				}
 				if (conn != null) {
+					logger.debug("CloseConnection()");
 					conn.close();
 				}
 			} catch (SQLException e) {
@@ -79,6 +83,7 @@ public class DBStructuralUnitDAO implements StructuralUnitDAO {
 					ps.close();
 				}
 				if (conn != null) {
+					logger.debug("CloseConnection()");
 					conn.close();
 				}
 			} catch (SQLException e) {
@@ -105,6 +110,7 @@ public class DBStructuralUnitDAO implements StructuralUnitDAO {
 					ps.close();
 				}
 				if (conn != null) {
+					logger.debug("CloseConnection()");
 					conn.close();
 				}
 			} catch (SQLException e) {

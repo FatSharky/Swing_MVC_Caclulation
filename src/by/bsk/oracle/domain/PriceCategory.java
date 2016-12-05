@@ -86,7 +86,7 @@ public class PriceCategory implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PriceCategory [idPrice=" + idPrice + ", name=" + name + ", idDivision=" + idDivision + "]";
+		return name;
 	}
 
 }

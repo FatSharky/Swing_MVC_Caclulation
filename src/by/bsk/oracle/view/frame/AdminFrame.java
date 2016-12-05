@@ -15,8 +15,8 @@ import javax.swing.table.DefaultTableModel;
 
 import by.bsk.oracle.command.ShowJTable;
 import by.bsk.oracle.domain.User;
-import by.bsk.oracle.view.form.AddUserDialog;
-import by.bsk.oracle.view.form.DeleteUserDialog;
+import by.bsk.oracle.view.dialog.AddUserDialog;
+import by.bsk.oracle.view.dialog.DeleteUserDialog;
 import by.bsk.oracle.view.util.CheckAccess;
 import by.bsk.oracle.view.util.Field;
 import by.bsk.oracle.view.util.GifPlace;

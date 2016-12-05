@@ -7,7 +7,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import by.bsk.oracle.service.PriceCategorySevice;
-import by.bsk.oracle.service.UserService;
 import by.bsk.oracle.service.exception.ServiceException;
 import by.bsk.oracle.service.factory.ServiceFactory;
 

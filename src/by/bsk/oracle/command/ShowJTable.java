@@ -8,8 +8,12 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 import by.bsk.oracle.domain.PriceCategory;
+import by.bsk.oracle.domain.ProductCategory;
+import by.bsk.oracle.domain.StructuralUnit;
 import by.bsk.oracle.domain.User;
 import by.bsk.oracle.service.PriceCategorySevice;
+import by.bsk.oracle.service.ProductCategoryService;
+import by.bsk.oracle.service.StructuralUnitService;
 import by.bsk.oracle.service.UserService;
 import by.bsk.oracle.service.factory.ServiceFactory;
 import by.bsk.oracle.view.util.CheckAccess;
@@ -156,7 +160,57 @@ public class ShowJTable {
 				tModel.insertRow(i, data);
 			}
 		} catch (Exception e) {
-			
+
+		}
+		return tModel;
+	}
+
+	static public DefaultTableModel StructuralUnitTable(int idPrice) {
+		DefaultTableModel tModel = null;
+		try {
+			String[] top = new String[] { "ID", "Наименование", "Наценка", "Налог", "Тр. расходы", "Скидка",
+					"Надбавка" };
+			tModel = new DefaultTableModel();
+			tModel.setColumnIdentifiers(top);
+			List<StructuralUnit> structuralUnit = null;
+			ServiceFactory serviceFactor = ServiceFactory.getInstance();
+			StructuralUnitService structuralUnitService = serviceFactor.getStructuralUnit();
+			structuralUnit = structuralUnitService.listStructuralUnit(idPrice);
+			for (int i = 0; i < structuralUnit.size(); i++) {
+				int id = structuralUnit.get(i).getIdUnit();
+				String name = structuralUnit.get(i).getName();
+				double markUp = structuralUnit.get(i).getMarkUp();
+				double tax = structuralUnit.get(i).getTax();
+				double fare = structuralUnit.get(i).getFare();
+				double discount = structuralUnit.get(i).getDiscount();
+				double allowance = structuralUnit.get(i).getAllowance();
+				Object[] data = { id, name, markUp, tax, fare, discount, allowance };
+				tModel.insertRow(i, data);
+			}
+		} catch (Exception e) {
+
+		}
+		return tModel;
+	}
+
+	static public DefaultTableModel productCategoryTable(int idDivision) {
+		DefaultTableModel tModel = null;
+		try {
+			String[] top = new String[] { "ID", "Наименование" };
+			tModel = new DefaultTableModel();
+			tModel.setColumnIdentifiers(top);
+			List<ProductCategory> productCategories = null;
+			ServiceFactory serviceFactor = ServiceFactory.getInstance();
+			ProductCategoryService productCategoryService = serviceFactor.getProductCategory();
+			productCategories = productCategoryService.listCategories(idDivision);
+			for (int i = 0; i < productCategories.size(); i++) {
+				int id = productCategories.get(i).getIdProcduct();
+				String name = productCategories.get(i).getName();
+				Object[] data = { id, name };
+				tModel.insertRow(i, data);
+			}
+		} catch (Exception e) {
+
 		}
 		return tModel;
 	}

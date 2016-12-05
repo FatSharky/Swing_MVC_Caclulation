@@ -7,11 +7,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import by.bsk.oracle.command.DeletePCategoryCommand;
 import by.bsk.oracle.command.ShowJTable;
 import by.bsk.oracle.domain.User;
-import by.bsk.oracle.view.form.AddPCategoryDialog;
-import by.bsk.oracle.view.form.DeletePCategoryDialog;
+import by.bsk.oracle.view.dialog.AddPCategoryDialog;
+import by.bsk.oracle.view.dialog.DeletePCategoryDialog;
 
 import javax.swing.JScrollPane;
 import javax.swing.border.CompoundBorder;
