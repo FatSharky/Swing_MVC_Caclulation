@@ -35,4 +35,14 @@ public final class Field {
 	public static final String DADD_DELETE = "addUserDialog.delete";
 	public static final String DADD_WATCH = "addUserDialog.watch";
 
+	public static final String PRICE_PANEL_LABEL = "priceCategoryPanel.lName";
+	public static final String PRICE_PANEL_ADD_INFO = "priceCategoryPanel.addInfo";
+	public static final String PRICE_PANEL_EDIT_INFO = "priceCategoryPanel.updateInfo";
+	public static final String PRICE_PANEL_DELETE_INFO = "priceCategoryPanel.deleteInfo";
+
+	public static final String PRODUCT_PANEL_LABEL = "productCategoryPanel.lname";
+	public static final String PRODUCT_PANEL_ADD_INFO = "productCategoryPanel.addInfo";
+	public static final String PRODUCT_PANEL_EDIT_INFO = "productCategoryPanel.updateInfo";
+	public static final String PRODUCT_PANEL_DELETE_INFO = "productCategoryPanel.deleteInfo";
+
 }

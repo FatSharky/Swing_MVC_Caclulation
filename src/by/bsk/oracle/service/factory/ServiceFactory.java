@@ -16,7 +16,7 @@ public class ServiceFactory {
 	private ServiceFactory() {
 	}
 
-	private static final ServiceFactory INSTANCE = new ServiceFactory();
+	private static ServiceFactory serviceFactory;
 
 	private final UserService userService = new UserServiceImpl();
 	private final DivisionService divisionService = new DivisionServiceImpl();
@@ -25,7 +25,14 @@ public class ServiceFactory {
 	private final ProductCategoryService productCategoryService = new ProductCategoryServiceImpl();
 
 	public static ServiceFactory getInstance() {
-		return INSTANCE;
+		if (serviceFactory == null) {
+			synchronized (ServiceFactory.class) {
+				if (serviceFactory == null) {
+					serviceFactory = new ServiceFactory();
+				}
+			}
+		}
+		return serviceFactory;
 	}
 
 	public UserService getUserServie() {

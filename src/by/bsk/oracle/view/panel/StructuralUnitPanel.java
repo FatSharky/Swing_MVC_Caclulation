@@ -25,18 +25,18 @@ import by.bsk.oracle.view.dialog.DeleteStrucuralUnitDialog;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 public class StructuralUnitPanel extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JTable table;
 	private FileInputStream fis;
 	private ObjectInputStream inputStream;
-	DefaultTableModel tModel;
+	private DefaultTableModel tModel;
 	private StructuralUnitPanel panel;
+	private JComboBox<PriceCategory> comboBox;
 
 	/**
 	 * Create the panel.
@@ -51,6 +51,11 @@ public class StructuralUnitPanel extends JPanel {
 			JMenuBar menuBar = new JMenuBar();
 			menuBar.setBounds(0, 0, 1250, 26);
 			add(menuBar);
+
+			JLabel lblC = new JLabel(
+					"C\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u043D\u044B\u0435 \u043F\u043E\u0434\u0440\u0430\u0437\u0434\u0435\u043B\u0435\u043D\u0438\u044F ");
+			lblC.setFont(new Font("Tahoma", Font.BOLD, 16));
+			menuBar.add(lblC);
 
 			JButton bAddUnit = new JButton("");
 
@@ -75,7 +80,7 @@ public class StructuralUnitPanel extends JPanel {
 			ServiceFactory serviceFactory = ServiceFactory.getInstance();
 			PriceCategorySevice categorySevice = serviceFactory.getPriceCategory();
 			priceCategory = categorySevice.selectCategoryByIdDivision(user.getDivision().getIdDivision());
-			JComboBox<PriceCategory> comboBox = new JComboBox<PriceCategory>();
+			comboBox = new JComboBox<PriceCategory>();
 			String[] array = new String[priceCategory.size()];
 
 			for (int i = 0; i < array.length; i++) {
@@ -84,9 +89,10 @@ public class StructuralUnitPanel extends JPanel {
 				price.setName(priceCategory.get(i).getName());
 				comboBox.addItem(price);
 			}
-			tModel = new DefaultTableModel();
+
 			comboBox.setBounds(426, 39, 467, 22);
 			add(comboBox);
+			tModel = new DefaultTableModel();
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setBounds(12, 73, 1226, 414);
 			add(scrollPane);
@@ -121,4 +127,5 @@ public class StructuralUnitPanel extends JPanel {
 			}
 		}
 	}
+
 }

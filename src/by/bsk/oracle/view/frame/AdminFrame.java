@@ -73,7 +73,6 @@ public class AdminFrame extends JFrame {
 
 	private AdminFrame() {
 		readUser();
-
 	}
 
 	private void readUser() {

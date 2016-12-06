@@ -7,7 +7,7 @@ import by.bsk.oracle.dao.StructuralUnitDAO;
 import by.bsk.oracle.dao.UserDAO;
 
 public abstract class DAOFactory {
-	private static final DAOFactory SQL_DAOFACTORY = new SQLDAOFactory();
+	private static DAOFactory sqlFactory;
 
 	public abstract UserDAO getUserDAO();
 
@@ -20,7 +20,13 @@ public abstract class DAOFactory {
 	public abstract StructuralUnitDAO getStructuralUnitDAO();
 
 	public static DAOFactory getInstance() {
-		return SQL_DAOFACTORY;
+		if (sqlFactory == null) {
+			synchronized (DAOFactory.class) {
+				if (sqlFactory == null) {
+					sqlFactory = new SQLDAOFactory();
+				}
+			}
+		}
+		return sqlFactory;
 	}
-
 }

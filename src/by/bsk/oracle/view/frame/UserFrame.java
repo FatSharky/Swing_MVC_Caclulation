@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 
 import by.bsk.oracle.domain.User;
 import by.bsk.oracle.view.panel.PriceCategoryPanel;
+import by.bsk.oracle.view.panel.ProductCategoryPanel;
 import by.bsk.oracle.view.panel.StructuralUnitPanel;
 
 import javax.swing.JMenuBar;
@@ -18,6 +19,7 @@ import javax.swing.JToolBar;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JLayeredPane;
 
 public class UserFrame extends JFrame {
 
@@ -40,11 +42,16 @@ public class UserFrame extends JFrame {
 
 	private JButton btnNewButton;
 
-	private PriceCategoryPanel pPrice;
-	private StructuralUnitPanel pUnit;
+	// private PriceCategoryPanel pPrice;
+	// private StructuralUnitPanel pUnit;
 	private JButton btnStructuralUnit;
+	private JButton btnProductCategory;
 
 	private JMenuItem mStructuralUnit;
+	private JMenuItem mProductCategory;
+	// private ProductCategoryPanel pProduct;
+	private JLayeredPane layeredPane;
+	private JPanel panel;
 
 	private UserFrame() {
 		readUser();
@@ -90,19 +97,29 @@ public class UserFrame extends JFrame {
 		mStructuralUnit = new JMenuItem(
 				"\u0421\u0442\u0440\u0443\u043A\u0442\u0443\u0440\u043D\u044B\u0435 \u043F\u043E\u0434\u0440\u0430\u0437\u0434\u0435\u043B\u043D\u0435\u0438\u044F");
 		mDirectory.add(mStructuralUnit);
+
+		mProductCategory = new JMenuItem(
+				"\u041D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u044F \u0433\u0440\u0443\u043F\u043F \u0438\u0437\u0434\u0435\u043B\u0438\u0439");
+		mDirectory.add(mProductCategory);
 		contentPaneFist = new JPanel();
 		contentPaneFist.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPaneFist);
 		contentPaneFist.setLayout(null);
 
-		pPrice = PriceCategoryPanel.getInstance();
-		pPrice.setBounds(10, 42, 1241, 503);
-		contentPaneFist.add(pPrice);
-		pPrice.setVisible(false);
+		// pPrice = PriceCategoryPanel.getInstance();
+		// pPrice.setBounds(10, 42, 1241, 503);
+		// contentPaneFist.add(pPrice);
+		// pPrice.setVisible(false);
 
-		pUnit = new StructuralUnitPanel();
-		pUnit.setBounds(10, 42, 1241, 503);
-		contentPaneFist.add(pUnit);
+		// pUnit = new StructuralUnitPanel();
+		// pUnit.setBounds(10, 515, 1241, 30);
+		// contentPaneFist.add(pUnit);
+		// pUnit.setVisible(false);
+
+		// pProduct = new ProductCategoryPanel();
+		// pProduct.setBounds(10, 515, 1241, 30);
+		// contentPaneFist.add(pProduct);
+		// pProduct.setVisible(false);
 
 		toolBar = new JToolBar();
 		toolBar.setBounds(0, 0, 1261, 36);
@@ -119,38 +136,71 @@ public class UserFrame extends JFrame {
 
 		toolBar.add(btnStructuralUnit);
 
+		btnProductCategory = new JButton(
+				"\u041D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u0435 \u0433\u0440\u0443\u043F\u043F \u0438\u0437\u0434\u0435\u043B\u0438\u0439");
+
+		toolBar.add(btnProductCategory);
+
+		layeredPane = new JLayeredPane();
+		layeredPane.setBounds(10, 38, 1239, 504);
+		contentPaneFist.add(layeredPane);
+
+		panel = new JPanel();
+		panel.setBounds(0, 0, 1239, 504);
+		layeredPane.add(panel);
+
 	}
 
 	private void registerListeners(User user) {
 		mPriceCategory.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				pPrice.setVisible(true);
-				pUnit.setVisible(false);
+				layeredPane.removeAll();
+				PriceCategoryPanel categoryPanel = PriceCategoryPanel.getInstance();
+				categoryPanel.setBounds(0, 0, 1239, 504);
+				layeredPane.add(categoryPanel);
 			}
 		});
 
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				pUnit.setVisible(false);
-				pPrice.setVisible(true);
+				layeredPane.removeAll();
+				PriceCategoryPanel categoryPanel = PriceCategoryPanel.getInstance();
+				categoryPanel.setBounds(0, 0, 1239, 504);
+				layeredPane.add(categoryPanel);
 			}
 		});
 		btnStructuralUnit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				pUnit = new StructuralUnitPanel();
-				contentPaneFist.add(pUnit);
-				pUnit.setVisible(true);
-				pPrice.setVisible(false);
+				layeredPane.removeAll();
+				StructuralUnitPanel structuralUnitPanel = new StructuralUnitPanel();
+				structuralUnitPanel.setBounds(0, 0, 1239, 504);
+				layeredPane.add(structuralUnitPanel);
 			}
 		});
 		mStructuralUnit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				pUnit = new StructuralUnitPanel();
-				contentPaneFist.add(pUnit);
-				pPrice.setVisible(false);
-				pUnit.setVisible(true);
+				layeredPane.removeAll();
+				StructuralUnitPanel structuralUnitPanel = new StructuralUnitPanel();
+				structuralUnitPanel.setBounds(0, 0, 1239, 504);
+				layeredPane.add(structuralUnitPanel);
+			}
+		});
+		btnProductCategory.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				layeredPane.removeAll();
+				ProductCategoryPanel productCategoryPanel = ProductCategoryPanel.getInstance();
+				productCategoryPanel.setBounds(0, 0, 1239, 504);
+				layeredPane.add(productCategoryPanel);
+			}
+		});
+		mProductCategory.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				layeredPane.removeAll();
+				ProductCategoryPanel productCategoryPanel = ProductCategoryPanel.getInstance();
+				productCategoryPanel.setBounds(0, 0, 1239, 504);
+				layeredPane.add(productCategoryPanel);
 			}
 		});
 	}
