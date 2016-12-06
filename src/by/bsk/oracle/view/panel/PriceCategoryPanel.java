@@ -10,8 +10,8 @@ import org.apache.logging.log4j.Logger;
 
 import by.bsk.oracle.command.ShowJTable;
 import by.bsk.oracle.domain.User;
-import by.bsk.oracle.view.dialog.AddPCategoryDialog;
-import by.bsk.oracle.view.dialog.DeletePCategoryDialog;
+import by.bsk.oracle.view.dialog.price.AddPCategoryDialog;
+import by.bsk.oracle.view.dialog.price.DeletePCategoryDialog;
 import by.bsk.oracle.view.util.Field;
 import by.bsk.oracle.view.util.GifPlace;
 import by.bsk.oracle.view.util.ReturnIcon;

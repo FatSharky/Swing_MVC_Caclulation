@@ -19,8 +19,8 @@ import by.bsk.oracle.domain.PriceCategory;
 import by.bsk.oracle.domain.User;
 import by.bsk.oracle.service.PriceCategorySevice;
 import by.bsk.oracle.service.factory.ServiceFactory;
-import by.bsk.oracle.view.dialog.AddStrucutalUnitDialog;
-import by.bsk.oracle.view.dialog.DeleteStrucuralUnitDialog;
+import by.bsk.oracle.view.dialog.unit.AddStrucutalUnitDialog;
+import by.bsk.oracle.view.dialog.unit.DeleteStrucuralUnitDialog;
 
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
