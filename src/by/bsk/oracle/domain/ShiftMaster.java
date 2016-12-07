@@ -7,7 +7,7 @@ public class ShiftMaster implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int idMaster;
 	private String fio;
-	private int idUser;
+	private int idUnit;
 
 	public int getIdMaster() {
 		return idMaster;
@@ -25,12 +25,12 @@ public class ShiftMaster implements Serializable {
 		this.fio = fio;
 	}
 
-	public int getIdUser() {
-		return idUser;
+	public int getIdUnit() {
+		return idUnit;
 	}
 
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
+	public void setIdUnit(int idUnit) {
+		this.idUnit = idUnit;
 	}
 
 	public static long getSerialversionuid() {
@@ -43,7 +43,7 @@ public class ShiftMaster implements Serializable {
 		int result = 1;
 		result = prime * result + ((fio == null) ? 0 : fio.hashCode());
 		result = prime * result + idMaster;
-		result = prime * result + idUser;
+		result = prime * result + idUnit;
 		return result;
 	}
 
@@ -63,14 +63,14 @@ public class ShiftMaster implements Serializable {
 			return false;
 		if (idMaster != other.idMaster)
 			return false;
-		if (idUser != other.idUser)
+		if (idUnit != other.idUnit)
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "ShiftMaster [idMaster=" + idMaster + ", fio=" + fio + ", idUser=" + idUser + "]";
+		return "ShiftMaster [idMaster=" + idMaster + ", fio=" + fio + ", idUnit=" + idUnit + "]";
 	}
 
 }

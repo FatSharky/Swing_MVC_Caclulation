@@ -7,5 +7,5 @@ import by.bsk.oracle.domain.Dish;
 
 public interface DishDAO extends AbstractDAO<Dish> {
 
-	List<Dish> selectDishByIdStructUnit(int idUnit) throws DAOException;
+	List<Dish> selectDishByIdDivision(int idDivision) throws DAOException;
 }
