@@ -7,12 +7,16 @@ import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
+import by.bsk.oracle.domain.Dish;
 import by.bsk.oracle.domain.PriceCategory;
 import by.bsk.oracle.domain.ProductCategory;
+import by.bsk.oracle.domain.ShiftMaster;
 import by.bsk.oracle.domain.StructuralUnit;
 import by.bsk.oracle.domain.User;
+import by.bsk.oracle.service.DishService;
 import by.bsk.oracle.service.PriceCategorySevice;
 import by.bsk.oracle.service.ProductCategoryService;
+import by.bsk.oracle.service.ShiftMasterService;
 import by.bsk.oracle.service.StructuralUnitService;
 import by.bsk.oracle.service.UserService;
 import by.bsk.oracle.service.factory.ServiceFactory;
@@ -214,4 +218,49 @@ public class ShowJTable {
 		}
 		return tModel;
 	}
+
+	static public DefaultTableModel dishTable(int idDivision) {
+		DefaultTableModel tModel = null;
+		try {
+			String[] top = new String[] { "ID", "Наименование" };
+			tModel = new DefaultTableModel();
+			tModel.setColumnIdentifiers(top);
+			List<Dish> dishes = null;
+			ServiceFactory serviceFactor = ServiceFactory.getInstance();
+			DishService dishService = serviceFactor.getDishService();
+			dishes = dishService.selectDishByIdDivision(idDivision);
+			for (int i = 0; i < dishes.size(); i++) {
+				int id = dishes.get(i).getIdDish();
+				String name = dishes.get(i).getName();
+				Object[] data = { id, name };
+				tModel.insertRow(i, data);
+			}
+		} catch (Exception e) {
+
+		}
+		return tModel;
+	}
+
+	static public DefaultTableModel shiftMasterTable(int idUnit) {
+		DefaultTableModel tModel = null;
+		try {
+			String[] top = new String[] { "ID", "Фамилия Имя Отечтво" };
+			tModel = new DefaultTableModel();
+			tModel.setColumnIdentifiers(top);
+			List<ShiftMaster> shiftMasters = null;
+			ServiceFactory serviceFactor = ServiceFactory.getInstance();
+			ShiftMasterService shiftMasterService = serviceFactor.getShiftMasterService();
+			shiftMasters = shiftMasterService.selectShiftMasterByIdUnit(idUnit);
+			for (int i = 0; i < shiftMasters.size(); i++) {
+				int id = shiftMasters.get(i).getIdMaster();
+				String name = shiftMasters.get(i).getFio();
+				Object[] data = { id, name };
+				tModel.insertRow(i, data);
+			}
+		} catch (Exception e) {
+
+		}
+		return tModel;
+	}
+
 }

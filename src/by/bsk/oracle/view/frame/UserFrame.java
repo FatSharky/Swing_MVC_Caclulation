@@ -5,8 +5,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import by.bsk.oracle.domain.User;
+import by.bsk.oracle.view.panel.DishPanel;
 import by.bsk.oracle.view.panel.PriceCategoryPanel;
 import by.bsk.oracle.view.panel.ProductCategoryPanel;
+import by.bsk.oracle.view.panel.ShiftMasterPanel;
 import by.bsk.oracle.view.panel.StructuralUnitPanel;
 
 import javax.swing.JMenuBar;
@@ -52,6 +54,10 @@ public class UserFrame extends JFrame {
 	// private ProductCategoryPanel pProduct;
 	private JLayeredPane layeredPane;
 	private JPanel panel;
+	private JButton btnDish;
+	private JMenuItem mDish;
+	private JButton btnShiftMasters;
+	private JMenuItem mShiftMasters;
 
 	private UserFrame() {
 		readUser();
@@ -101,6 +107,13 @@ public class UserFrame extends JFrame {
 		mProductCategory = new JMenuItem(
 				"\u041D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u044F \u0433\u0440\u0443\u043F\u043F \u0438\u0437\u0434\u0435\u043B\u0438\u0439");
 		mDirectory.add(mProductCategory);
+
+		mDish = new JMenuItem(
+				"\u041D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u044F \u0431\u043B\u044E\u0434");
+		mDirectory.add(mDish);
+
+		mShiftMasters = new JMenuItem("\u041C\u0430\u0441\u0442\u0435\u0440\u0430 \u0441\u043C\u0435\u043D");
+		mDirectory.add(mShiftMasters);
 		contentPaneFist = new JPanel();
 		contentPaneFist.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPaneFist);
@@ -140,6 +153,14 @@ public class UserFrame extends JFrame {
 				"\u041D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u0435 \u0433\u0440\u0443\u043F\u043F \u0438\u0437\u0434\u0435\u043B\u0438\u0439");
 
 		toolBar.add(btnProductCategory);
+
+		btnDish = new JButton(
+				"\u041D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u0435 \u0431\u043B\u044E\u0434");
+
+		toolBar.add(btnDish);
+
+		btnShiftMasters = new JButton("\u041C\u0430\u0441\u0442\u0435\u0440\u0430 \u0441\u043C\u0435\u043D");
+		toolBar.add(btnShiftMasters);
 
 		layeredPane = new JLayeredPane();
 		layeredPane.setBounds(10, 38, 1239, 504);
@@ -201,6 +222,38 @@ public class UserFrame extends JFrame {
 				ProductCategoryPanel productCategoryPanel = ProductCategoryPanel.getInstance();
 				productCategoryPanel.setBounds(0, 0, 1239, 504);
 				layeredPane.add(productCategoryPanel);
+			}
+		});
+		btnDish.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				layeredPane.removeAll();
+				DishPanel dishPanel = DishPanel.getInstance();
+				dishPanel.setBounds(0, 0, 1239, 504);
+				layeredPane.add(dishPanel);
+			}
+		});
+		mDish.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				layeredPane.removeAll();
+				DishPanel dishPanel = DishPanel.getInstance();
+				dishPanel.setBounds(0, 0, 1239, 504);
+				layeredPane.add(dishPanel);
+			}
+		});
+		btnShiftMasters.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				layeredPane.removeAll();
+				ShiftMasterPanel masterPanel = new ShiftMasterPanel();
+				masterPanel.setBounds(0, 0, 1239, 504);
+				layeredPane.add(masterPanel);
+			}
+		});
+		mShiftMasters.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				layeredPane.removeAll();
+				ShiftMasterPanel masterPanel = new ShiftMasterPanel();
+				masterPanel.setBounds(0, 0, 1239, 504);
+				layeredPane.add(masterPanel);
 			}
 		});
 	}

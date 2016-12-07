@@ -136,8 +136,7 @@ public class StructuralUnit implements Serializable {
 
 	@Override
 	public String toString() {
-		return "StructuralUnit [idUnit=" + idUnit + ", name=" + name + ", markUp=" + markUp + ", tax=" + tax + ", fare="
-				+ fare + ", discount=" + discount + ", allowance=" + allowance + ", idPrice=" + idPrice + "]";
+		return name;
 	}
 
 }

@@ -19,6 +19,7 @@ import by.bsk.oracle.domain.PriceCategory;
 import by.bsk.oracle.domain.User;
 import by.bsk.oracle.service.PriceCategorySevice;
 import by.bsk.oracle.service.factory.ServiceFactory;
+import by.bsk.oracle.view.combobox.PriceCategoryComboBox;
 import by.bsk.oracle.view.dialog.unit.AddStrucutalUnitDialog;
 import by.bsk.oracle.view.dialog.unit.DeleteStrucuralUnitDialog;
 
@@ -76,20 +77,7 @@ public class StructuralUnitPanel extends JPanel {
 			});
 			bDeleteUnit.setIcon(new ImageIcon(StructuralUnitPanel.class.getResource("/icon/remove.gif")));
 			menuBar.add(bDeleteUnit);
-			List<PriceCategory> priceCategory = null;
-			ServiceFactory serviceFactory = ServiceFactory.getInstance();
-			PriceCategorySevice categorySevice = serviceFactory.getPriceCategory();
-			priceCategory = categorySevice.selectCategoryByIdDivision(user.getDivision().getIdDivision());
-			comboBox = new JComboBox<PriceCategory>();
-			String[] array = new String[priceCategory.size()];
-
-			for (int i = 0; i < array.length; i++) {
-				PriceCategory price = new PriceCategory();
-				price.setIdDivision(priceCategory.get(i).getIdPrice());
-				price.setName(priceCategory.get(i).getName());
-				comboBox.addItem(price);
-			}
-
+			comboBox = new PriceCategoryComboBox(user.getDivision().getIdDivision());
 			comboBox.setBounds(426, 39, 467, 22);
 			add(comboBox);
 			tModel = new DefaultTableModel();
@@ -102,7 +90,7 @@ public class StructuralUnitPanel extends JPanel {
 			comboBox.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					Object item = comboBox.getSelectedItem();
-					int value = ((PriceCategory) item).getIdDivision();
+					int value = ((PriceCategory) item).getIdPrice();
 					tModel = ShowJTable.StructuralUnitTable(value);
 					table.setModel(tModel);
 					table.getColumnModel().getColumn(0).setMinWidth(0);
