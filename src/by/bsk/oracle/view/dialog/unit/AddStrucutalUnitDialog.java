@@ -105,7 +105,7 @@ public class AddStrucutalUnitDialog extends JDialog {
 		btnAddUnit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Object item = jComboBox.getSelectedItem();
-				int value = ((PriceCategory) item).getIdDivision();
+				int value = ((PriceCategory) item).getIdPrice();
 				String name = tName.getText();
 				String markUp = tMarkUp.getText();
 				String tax = tTax.getText();

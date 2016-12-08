@@ -3,14 +3,16 @@ package by.bsk.oracle.dao.factory;
 import by.bsk.oracle.dao.DishDAO;
 import by.bsk.oracle.dao.DivisionDAO;
 import by.bsk.oracle.dao.PriceCategoryDAO;
-import by.bsk.oracle.dao.ProductCategoryDAO;
+import by.bsk.oracle.dao.ProductDAO;
+import by.bsk.oracle.dao.RecipeDAO;
 import by.bsk.oracle.dao.ShiftMasterDAO;
 import by.bsk.oracle.dao.StructuralUnitDAO;
 import by.bsk.oracle.dao.UserDAO;
 import by.bsk.oracle.dao.impl.DBDishDAO;
 import by.bsk.oracle.dao.impl.DBDivisionDAO;
 import by.bsk.oracle.dao.impl.DBPriceCategoryDAO;
-import by.bsk.oracle.dao.impl.DBProductCategoryDAO;
+import by.bsk.oracle.dao.impl.DBProductDAO;
+import by.bsk.oracle.dao.impl.DBRecipeDAO;
 import by.bsk.oracle.dao.impl.DBShiftMasterDAO;
 import by.bsk.oracle.dao.impl.DBStructuralUnitDAO;
 import by.bsk.oracle.dao.impl.DBUserDAO;
@@ -20,10 +22,11 @@ public class SQLDAOFactory extends DAOFactory {
 	private final UserDAO userDAO = new DBUserDAO();
 	private final DivisionDAO divisionDAO = new DBDivisionDAO();
 	private final PriceCategoryDAO priceCategoryDAO = new DBPriceCategoryDAO();
-	private final ProductCategoryDAO productCategoryDAO = new DBProductCategoryDAO();
+	private final RecipeDAO recipeDAO = new DBRecipeDAO();
 	private final StructuralUnitDAO structuralUnitDAO = new DBStructuralUnitDAO();
 	private final ShiftMasterDAO shiftMasterDAO = new DBShiftMasterDAO();
 	private final DishDAO dishDAO = new DBDishDAO();
+	private final ProductDAO productDAO = new DBProductDAO();
 
 	@Override
 	public UserDAO getUserDAO() {
@@ -41,8 +44,8 @@ public class SQLDAOFactory extends DAOFactory {
 	}
 
 	@Override
-	public ProductCategoryDAO getProductCategoryDAO() {
-		return productCategoryDAO;
+	public RecipeDAO getRecipeDAO() {
+		return recipeDAO;
 	}
 
 	@Override
@@ -58,6 +61,11 @@ public class SQLDAOFactory extends DAOFactory {
 	@Override
 	public DishDAO getDishDAO() {
 		return dishDAO;
+	}
+
+	@Override
+	public ProductDAO getProductDAO() {
+		return productDAO;
 	}
 
 }

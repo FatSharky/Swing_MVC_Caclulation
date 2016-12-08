@@ -9,13 +9,13 @@ import javax.swing.table.DefaultTableModel;
 
 import by.bsk.oracle.domain.Dish;
 import by.bsk.oracle.domain.PriceCategory;
-import by.bsk.oracle.domain.ProductCategory;
+import by.bsk.oracle.domain.Recipe;
 import by.bsk.oracle.domain.ShiftMaster;
 import by.bsk.oracle.domain.StructuralUnit;
 import by.bsk.oracle.domain.User;
 import by.bsk.oracle.service.DishService;
 import by.bsk.oracle.service.PriceCategorySevice;
-import by.bsk.oracle.service.ProductCategoryService;
+import by.bsk.oracle.service.RecipeService;
 import by.bsk.oracle.service.ShiftMasterService;
 import by.bsk.oracle.service.StructuralUnitService;
 import by.bsk.oracle.service.UserService;
@@ -203,12 +203,12 @@ public class ShowJTable {
 			String[] top = new String[] { "ID", "Наименование" };
 			tModel = new DefaultTableModel();
 			tModel.setColumnIdentifiers(top);
-			List<ProductCategory> productCategories = null;
+			List<Recipe> productCategories = null;
 			ServiceFactory serviceFactor = ServiceFactory.getInstance();
-			ProductCategoryService productCategoryService = serviceFactor.getProductCategory();
+			RecipeService productCategoryService = serviceFactor.getRecipeService();
 			productCategories = productCategoryService.listCategories(idDivision);
 			for (int i = 0; i < productCategories.size(); i++) {
-				int id = productCategories.get(i).getIdProcduct();
+				int id = productCategories.get(i).getIdRecipe();
 				String name = productCategories.get(i).getName();
 				Object[] data = { id, name };
 				tModel.insertRow(i, data);

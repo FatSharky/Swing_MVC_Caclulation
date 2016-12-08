@@ -11,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.util.ResourceBundle;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -20,6 +21,8 @@ import org.apache.logging.log4j.Logger;
 
 import by.bsk.oracle.command.ShowJTable;
 import by.bsk.oracle.domain.User;
+import by.bsk.oracle.view.dialog.dish.AddDishDialog;
+import by.bsk.oracle.view.dialog.dish.DeleteDishDialog;
 import by.bsk.oracle.view.util.Field;
 
 import javax.swing.JScrollPane;
@@ -85,6 +88,9 @@ public class DishPanel extends JPanel {
 		bAddDish = new JButton("");
 		bAddDish.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				AddDishDialog addDishDialog = new AddDishDialog(table, tModel, user.getDivision().getIdDivision());
+				addDishDialog.setLocationRelativeTo(dishPanel);
+				addDishDialog.setVisible(true);
 			}
 		});
 		bAddDish.setIcon(new ImageIcon(DishPanel.class.getResource("/icon/add_obj.gif")));
@@ -101,6 +107,9 @@ public class DishPanel extends JPanel {
 		bDeleteDish = new JButton("");
 		bDeleteDish.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				JDialog deleteDishDialog = new DeleteDishDialog(table, tModel);
+				deleteDishDialog.setLocationRelativeTo(dishPanel);
+				deleteDishDialog.setVisible(true);
 			}
 		});
 		bDeleteDish.setIcon(new ImageIcon(DishPanel.class.getResource("/icon/remove.gif")));

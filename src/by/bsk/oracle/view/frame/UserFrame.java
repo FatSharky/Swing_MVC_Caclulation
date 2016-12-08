@@ -7,7 +7,7 @@ import javax.swing.border.EmptyBorder;
 import by.bsk.oracle.domain.User;
 import by.bsk.oracle.view.panel.DishPanel;
 import by.bsk.oracle.view.panel.PriceCategoryPanel;
-import by.bsk.oracle.view.panel.ProductCategoryPanel;
+import by.bsk.oracle.view.panel.RecipePanel;
 import by.bsk.oracle.view.panel.ShiftMasterPanel;
 import by.bsk.oracle.view.panel.StructuralUnitPanel;
 
@@ -211,7 +211,7 @@ public class UserFrame extends JFrame {
 		btnProductCategory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				layeredPane.removeAll();
-				ProductCategoryPanel productCategoryPanel = ProductCategoryPanel.getInstance();
+				RecipePanel productCategoryPanel = RecipePanel.getInstance();
 				productCategoryPanel.setBounds(0, 0, 1239, 504);
 				layeredPane.add(productCategoryPanel);
 			}
@@ -219,7 +219,7 @@ public class UserFrame extends JFrame {
 		mProductCategory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				layeredPane.removeAll();
-				ProductCategoryPanel productCategoryPanel = ProductCategoryPanel.getInstance();
+				RecipePanel productCategoryPanel = RecipePanel.getInstance();
 				productCategoryPanel.setBounds(0, 0, 1239, 504);
 				layeredPane.add(productCategoryPanel);
 			}

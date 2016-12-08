@@ -25,11 +25,18 @@ import by.bsk.oracle.domain.StructuralUnit;
 import by.bsk.oracle.domain.User;
 import by.bsk.oracle.view.combobox.PriceCategoryComboBox;
 import by.bsk.oracle.view.combobox.StructuralUnitCombobox;
+import by.bsk.oracle.view.dialog.master.AddMasterDialog;
+import by.bsk.oracle.view.dialog.master.DeleteMasterDialog;
 
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 
 public class ShiftMasterPanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final Logger logger = LogManager.getLogger(DishPanel.class);
 	private JTable table;
 	private FileInputStream fis;
@@ -78,6 +85,7 @@ public class ShiftMasterPanel extends JPanel {
 		menuBar.add(lInfo);
 
 		JButton bAddMaster = new JButton("");
+
 		bAddMaster.setIcon(new ImageIcon(ShiftMasterPanel.class.getResource("/icon/add_obj.gif")));
 		menuBar.add(bAddMaster);
 
@@ -86,6 +94,7 @@ public class ShiftMasterPanel extends JPanel {
 		menuBar.add(bUpdateMaster);
 
 		JButton bDeleteMaster = new JButton("");
+
 		bDeleteMaster.setIcon(new ImageIcon(ShiftMasterPanel.class.getResource("/icon/remove.gif")));
 		menuBar.add(bDeleteMaster);
 
@@ -134,6 +143,18 @@ public class ShiftMasterPanel extends JPanel {
 					table.getColumnModel().getColumn(0).setMinWidth(0);
 					table.getColumnModel().getColumn(0).setMaxWidth(0);
 				}
+			}
+		});
+		bAddMaster.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JDialog addMasterdDialog = new AddMasterDialog(structUnitCB, table, tModel);
+				addMasterdDialog.setVisible(true);
+			}
+		});
+		bDeleteMaster.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JDialog addMasterdDialog = new DeleteMasterDialog(table, tModel);
+				addMasterdDialog.setVisible(true);
 			}
 		});
 

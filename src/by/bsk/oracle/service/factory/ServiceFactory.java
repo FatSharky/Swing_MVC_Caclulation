@@ -3,14 +3,14 @@ package by.bsk.oracle.service.factory;
 import by.bsk.oracle.service.DishService;
 import by.bsk.oracle.service.DivisionService;
 import by.bsk.oracle.service.PriceCategorySevice;
-import by.bsk.oracle.service.ProductCategoryService;
+import by.bsk.oracle.service.RecipeService;
 import by.bsk.oracle.service.ShiftMasterService;
 import by.bsk.oracle.service.StructuralUnitService;
 import by.bsk.oracle.service.UserService;
 import by.bsk.oracle.service.impl.DishServiceImpl;
 import by.bsk.oracle.service.impl.DivisionServiceImpl;
 import by.bsk.oracle.service.impl.PriceCategoryServiceImpl;
-import by.bsk.oracle.service.impl.ProductCategoryServiceImpl;
+import by.bsk.oracle.service.impl.RecipeServiceImpl;
 import by.bsk.oracle.service.impl.ShiftMasterServiceImpl;
 import by.bsk.oracle.service.impl.StructuralUnitServiceImpl;
 import by.bsk.oracle.service.impl.UserServiceImpl;
@@ -26,7 +26,7 @@ public class ServiceFactory {
 	private final DivisionService divisionService = new DivisionServiceImpl();
 	private final PriceCategorySevice priceCategorySevice = new PriceCategoryServiceImpl();
 	private final StructuralUnitService structuralUnitService = new StructuralUnitServiceImpl();
-	private final ProductCategoryService productCategoryService = new ProductCategoryServiceImpl();
+	private final RecipeService recipeService = new RecipeServiceImpl();
 	private final ShiftMasterService shiftMasterService = new ShiftMasterServiceImpl();
 	private final DishService dishService = new DishServiceImpl();
 
@@ -57,8 +57,8 @@ public class ServiceFactory {
 		return structuralUnitService;
 	}
 
-	public ProductCategoryService getProductCategory() {
-		return productCategoryService;
+	public RecipeService getRecipeService() {
+		return recipeService;
 	}
 
 	public ShiftMasterService getShiftMasterService() {

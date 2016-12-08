@@ -40,9 +40,9 @@ public final class Field {
 	public static final String PRICE_PANEL_EDIT_INFO = "priceCategoryPanel.updateInfo";
 	public static final String PRICE_PANEL_DELETE_INFO = "priceCategoryPanel.deleteInfo";
 
-	public static final String PRODUCT_PANEL_LABEL = "productCategoryPanel.lname";
-	public static final String PRODUCT_PANEL_ADD_INFO = "productCategoryPanel.addInfo";
-	public static final String PRODUCT_PANEL_EDIT_INFO = "productCategoryPanel.updateInfo";
-	public static final String PRODUCT_PANEL_DELETE_INFO = "productCategoryPanel.deleteInfo";
+	public static final String RECIPE_PANEL_LABEL = "recipePanel.lname";
+	public static final String RECIPE_PANEL_ADD_INFO = "recipePanel.addInfo";
+	public static final String RECIPE_PANEL_EDIT_INFO = "recipePanel.updateInfo";
+	public static final String RECIPE_PANEL_DELETE_INFO = "recipePanel.deleteInfo";
 
 }

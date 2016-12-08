@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import by.bsk.oracle.command.DeletePCategoryCommand;
+import by.bsk.oracle.command.DeleteDishCommand;
 import by.bsk.oracle.view.util.Field;
 import by.bsk.oracle.view.util.GifPlace;
 import by.bsk.oracle.view.util.ReturnIcon;
@@ -65,7 +65,7 @@ public class DeleteDishDialog extends JDialog {
 				setVisible(false);
 			}
 		});
-		ActionListener deleteUser = new DeletePCategoryCommand(jTable, tModel);
+		ActionListener deleteUser = new DeleteDishCommand(jTable, tModel);
 		btnDelete.addActionListener(deleteUser);
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
