@@ -3,6 +3,7 @@ package by.bsk.oracle.service.factory;
 import by.bsk.oracle.service.DishService;
 import by.bsk.oracle.service.DivisionService;
 import by.bsk.oracle.service.PriceCategorySevice;
+import by.bsk.oracle.service.ProductService;
 import by.bsk.oracle.service.RecipeService;
 import by.bsk.oracle.service.ShiftMasterService;
 import by.bsk.oracle.service.StructuralUnitService;
@@ -10,12 +11,13 @@ import by.bsk.oracle.service.UserService;
 import by.bsk.oracle.service.impl.DishServiceImpl;
 import by.bsk.oracle.service.impl.DivisionServiceImpl;
 import by.bsk.oracle.service.impl.PriceCategoryServiceImpl;
+import by.bsk.oracle.service.impl.ProductServiceImpl;
 import by.bsk.oracle.service.impl.RecipeServiceImpl;
 import by.bsk.oracle.service.impl.ShiftMasterServiceImpl;
 import by.bsk.oracle.service.impl.StructuralUnitServiceImpl;
 import by.bsk.oracle.service.impl.UserServiceImpl;
 
-public class ServiceFactory {
+public final class ServiceFactory {
 
 	private ServiceFactory() {
 	}
@@ -29,6 +31,7 @@ public class ServiceFactory {
 	private final RecipeService recipeService = new RecipeServiceImpl();
 	private final ShiftMasterService shiftMasterService = new ShiftMasterServiceImpl();
 	private final DishService dishService = new DishServiceImpl();
+	private final ProductService productService = new ProductServiceImpl();
 
 	public static ServiceFactory getInstance() {
 		if (serviceFactory == null) {
@@ -67,6 +70,10 @@ public class ServiceFactory {
 
 	public DishService getDishService() {
 		return dishService;
+	}
+
+	public ProductService getProductService() {
+		return productService;
 	}
 
 }

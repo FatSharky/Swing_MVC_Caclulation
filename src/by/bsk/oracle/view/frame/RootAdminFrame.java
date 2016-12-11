@@ -9,11 +9,18 @@ import by.bsk.oracle.domain.Division;
 import by.bsk.oracle.service.DivisionService;
 import by.bsk.oracle.service.exception.ServiceException;
 import by.bsk.oracle.service.factory.ServiceFactory;
+import by.bsk.oracle.view.dialog.user.AddUserDialog;
+import by.bsk.oracle.view.util.Field;
+import by.bsk.oracle.view.util.GifPlace;
+import by.bsk.oracle.view.util.ReturnIcon;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JButton;
 import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -21,35 +28,53 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JMenuBar;
 import javax.swing.UIManager;
 import javax.swing.JToolBar;
-import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 
 public class RootAdminFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+
 	private JPanel contentPane;
 	private JTable table;
 	private JTabbedPane tabbedPane;
 	private List<Division> divisons;
+	private JMenuBar menuBar;
 	private static RootAdminFrame rootAdminFrame;
 
+	private JMenuItem mHide2;
+	private JMenuItem mHide;
+	private JMenuItem mInfo;
+	
+	private DefaultTableModel tModel;
+	private JButton btnAddUser;
+
+	private ResourceBundle resourceBundle = ResourceBundle.getBundle(Field.BUNDLE_NAME);
+	private JButton btnNewButton;
+
 	private RootAdminFrame() {
-		setTitle(
-				"\u041F\u0430\u043D\u0435\u043B\u044C \u0430\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0442\u043E\u0440\u0430");
+		configure();
+		createForm();
+	}
+
+	private void configure() {
+		setTitle(resourceBundle.getString(Field.ROOT_ADMIN_FRAME_TITLE));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1200, 700);
-		
-		JMenuBar menuBar = new JMenuBar();
+	}
+
+	private void createForm() {
+		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("");
-		menuBar.add(mntmNewMenuItem_1);
-		
-		JMenuItem mntmNewMenuItem = new JMenuItem("");
-		menuBar.add(mntmNewMenuItem);
-		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Пользователь: root");
-		menuBar.add(mntmNewMenuItem_2);
+
+		mHide2 = new JMenuItem();
+		menuBar.add(mHide2);
+
+		mHide = new JMenuItem();
+		menuBar.add(mHide);
+
+		mInfo = new JMenuItem(resourceBundle.getString(Field.ROOT_ADMIN_FRAME_MENU_ITEM));
+		menuBar.add(mInfo);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -59,6 +84,9 @@ public class RootAdminFrame extends JFrame {
 		tabbedPane.setBorder(null);
 		tabbedPane.setBounds(0, 0, 1182, 652);
 		contentPane.add(tabbedPane);
+		
+		btnNewButton = new JButton("New button");
+		tabbedPane.addTab("New tab", null, btnNewButton, null);
 
 		ServiceFactory serviceFactory = ServiceFactory.getInstance();
 		DivisionService divisionService = serviceFactory.getDivisionService();
@@ -71,12 +99,11 @@ public class RootAdminFrame extends JFrame {
 				tabbedPane.addTab(division.getName(), null, panel, null);
 				panel.setLayout(null);
 
-
 				JScrollPane scrollPane = new JScrollPane();
 				scrollPane.setBounds(0, 47, 1177, 542);
 				panel.add(scrollPane);
-				
-				DefaultTableModel tModel = new DefaultTableModel();
+
+				tModel = new DefaultTableModel();
 				table = new JTable();
 				scrollPane.setViewportView(table);
 				tModel = ShowJTable.showUsersTable(division.getIdDivision());
@@ -85,60 +112,51 @@ public class RootAdminFrame extends JFrame {
 				table.getColumnModel().getColumn(0).setMinWidth(0);
 				table.getColumnModel().getColumn(0).setMaxWidth(0);
 
-			//	tLogin = new JTextField();
-			//	tLogin.setBounds(91, 29, 168, 40);
-			//	panel.add(tLogin);
-			//	tLogin.setColumns(10);
-
-			//	tPassword = new JTextField();
-			//	tPassword.setColumns(10);
-			//	tPassword.setBounds(91, 94, 168, 40);
-			//	panel.add(tPassword);
-
 				JToolBar toolBar = new JToolBar();
 				toolBar.setBounds(0, 0, 1177, 34);
 				panel.add(toolBar);
-				
-				JButton btnNewButton = new JButton("");
-				btnNewButton.setIcon(new ImageIcon(RootAdminFrame.class.getResource("/icon/add_obj.gif")));
-				toolBar.add(btnNewButton);
-				
-				JButton btnNewButton_1 = new JButton("");
-				btnNewButton_1.setIcon(new ImageIcon(RootAdminFrame.class.getResource("/icon/edit.gif")));
-				toolBar.add(btnNewButton_1);
-				
-				JButton btnNewButton_2 = new JButton("");
-				btnNewButton_2.setIcon(new ImageIcon(RootAdminFrame.class.getResource("/icon/remove.gif")));
-				toolBar.add(btnNewButton_2);
+
+				btnAddUser = createButton(toolBar, resourceBundle.getString(Field.ADD_INFO), GifPlace.GIF_ADD);
+				// = new JButton("");
+				// btnNewButton.setIcon(new
+				// ImageIcon(RootAdminFrame.class.getResource("/icon/add_obj.gif")));
+				// toolBar.add(btnNewButton);
+				JButton btnUpdateUser = createButton(toolBar, resourceBundle.getString(Field.UPDATE_INFO),
+						GifPlace.GIF_UPDATE);
+				// JButton btnNewButton_1 = new JButton("");
+				// btnNewButton_1.setIcon(new
+				// ImageIcon(RootAdminFrame.class.getResource("/icon/edit.gif")));
+				// toolBar.add(btnNewButton_1);
+				JButton btnDeleteUser = createButton(toolBar, resourceBundle.getString(Field.DELETE_INFO),
+						GifPlace.GIF_DELETE);
+				// JButton btnNewButton_2 = new JButton("");
+				// btnNewButton_2.setIcon(new
+				// ImageIcon(RootAdminFrame.class.getResource("/icon/remove.gif")));
+				// toolBar.add(btnNewButton_2);
+
+				JButton bAddAdmin = new JButton(resourceBundle.getString(Field.ROOT_ADMIN_BUTTON_ADMIN));
+				toolBar.add(bAddAdmin);
+				btnAddUser.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						AddUserDialog addUser = new AddUserDialog(table, tModel, division.getIdDivision());
+						addUser.setLocationRelativeTo(rootAdminFrame);
+						addUser.setVisible(true);
+					}
+				});
 			}
 		} catch (ServiceException e) {
 
 		}
-		Panel panel = new Panel();
-		panel.setEnabled(false);
-		panel.setBackground(UIManager.getColor("scrollbar"));
-		tabbedPane.addTab("New tab", null, panel, null);
-		panel.setLayout(null);
+	}
 
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 47, 1177, 542);
-		panel.add(scrollPane);
-		
-		JToolBar toolBar = new JToolBar();
-		toolBar.setBounds(0, 0, 1177, 34);
-		panel.add(toolBar);
-		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setIcon(new ImageIcon(RootAdminFrame.class.getResource("/icon/add_obj.gif")));
-		toolBar.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("");
-		btnNewButton_1.setIcon(new ImageIcon(RootAdminFrame.class.getResource("/icon/edit.gif")));
-		toolBar.add(btnNewButton_1);
-		
-		JButton btnNewButton_2 = new JButton("");
-		btnNewButton_2.setIcon(new ImageIcon(RootAdminFrame.class.getResource("/icon/remove.gif")));
-		toolBar.add(btnNewButton_2);
+	// ADDBUTTONS
+	private JButton createButton(JToolBar jToolBar, String info, String icon) {
+		JButton jButton = new JButton("");
+		jButton.setToolTipText(info);
+		jButton.setIcon(ReturnIcon.getIcon(getClass(), icon));
+		jToolBar.add(jButton);
+		return jButton;
+
 	}
 
 	public static RootAdminFrame getInstance() {

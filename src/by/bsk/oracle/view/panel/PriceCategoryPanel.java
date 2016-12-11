@@ -12,15 +12,18 @@ import by.bsk.oracle.command.ShowJTable;
 import by.bsk.oracle.domain.User;
 import by.bsk.oracle.view.dialog.price.AddPCategoryDialog;
 import by.bsk.oracle.view.dialog.price.DeletePCategoryDialog;
+import by.bsk.oracle.view.util.ExceptionMessage;
 import by.bsk.oracle.view.util.Field;
 import by.bsk.oracle.view.util.GifPlace;
 import by.bsk.oracle.view.util.ReturnIcon;
+import by.bsk.oracle.view.util.TextFile;
 
 import javax.swing.JScrollPane;
 import javax.swing.border.CompoundBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ResourceBundle;
@@ -57,21 +60,27 @@ public class PriceCategoryPanel extends JPanel {
 
 	private void readUser() {
 		try {
-			fis = new FileInputStream("temp.txt");
+			fis = new FileInputStream(TextFile.SESSION_FILE);
 			inputStream = new ObjectInputStream(fis);
 			User user = (User) inputStream.readObject();
 			configure();
 			createPanel(user);
 			registerListeners(user);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Не могу найти файл конфигурации");
-			logger.error("Невозможно найти файл конфигурации");
+			} catch (FileNotFoundException e) {
+			JOptionPane.showMessageDialog(null, ExceptionMessage.FILE_NOT_FOUND);
+			logger.error(ExceptionMessage.FILE_NOT_FOUND);
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, ExceptionMessage.OPEN_IO);
+			logger.error(ExceptionMessage.OPEN_IO);
+		} catch (ClassNotFoundException e) {
+			JOptionPane.showMessageDialog(null, ExceptionMessage.CLASS_NOT_FOUND);
+			logger.error(ExceptionMessage.CLASS_NOT_FOUND);
 		} finally {
 			try {
 				inputStream.close();
 			} catch (IOException e) {
-				JOptionPane.showMessageDialog(null, "Не могу закрыть файл конфигурации");
-				logger.error("Невозможно закрыть файл конфигурации");
+				JOptionPane.showMessageDialog(null, ExceptionMessage.CLOSE_IO);
+				logger.error(ExceptionMessage.CLOSE_IO);
 			}
 		}
 	}
@@ -82,7 +91,6 @@ public class PriceCategoryPanel extends JPanel {
 	}
 
 	private void createPanel(User user) {
-
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 40, 1224, 447);
 		add(scrollPane);
@@ -104,27 +112,10 @@ public class PriceCategoryPanel extends JPanel {
 		menuBar.add(lName);
 
 		bAddPCategory = createButton(menuBar, resourceBundle.getString(Field.PRICE_PANEL_ADD_INFO), GifPlace.GIF_ADD);
-		// bAddPCategory = new JButton("");
-		// menuBar.add(bAddPCategory);
-		// bAddPCategory.setToolTipText("");
-		// bAddPCategory.setIcon(new
-		// ImageIcon(PriceCategoryPanel.class.getResource("/icon/add_obj.gif")));
-
 		bEditPCategoty = createButton(menuBar, resourceBundle.getString(Field.PRICE_PANEL_EDIT_INFO),
 				GifPlace.GIF_UPDATE);
-		// bEditPCategoty = new JButton("");
-		// menuBar.add(bEditPCategoty);
-		// bEditPCategoty.setToolTipText("");
-		// bEditPCategoty.setIcon(new
-		// ImageIcon(PriceCategoryPanel.class.getResource("/icon/edit.gif")));
 		bDeletePCategory = createButton(menuBar, resourceBundle.getString(Field.PRICE_PANEL_DELETE_INFO),
 				GifPlace.GIF_DELETE);
-		// bDeletePCategory = new JButton("");
-		// menuBar.add(bDeletePCategory);
-		// bDeletePCategory.setToolTipText("");
-		// bDeletePCategory.setIcon(new
-		// ImageIcon(PriceCategoryPanel.class.getResource("/icon/remove.gif")));
-
 	}
 
 	private void registerListeners(User user) {

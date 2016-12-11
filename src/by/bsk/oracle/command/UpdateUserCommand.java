@@ -5,9 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import by.bsk.oracle.service.UserService;
 import by.bsk.oracle.service.exception.ServiceException;
@@ -15,36 +19,34 @@ import by.bsk.oracle.service.factory.ServiceFactory;
 
 public class UpdateUserCommand implements ActionListener {
 
+	private static final Logger logger = LogManager.getLogger(UpdateUserCommand.class);
+
 	private JTextField jLogin = new JTextField();
 	private JTextField jPassword = new JTextField();
 	private JTable jTable = new JTable();
-	private JLabel jLabel = new JLabel();
 	private DefaultTableModel tModel = new DefaultTableModel();
+	private String id;
 
-	public UpdateUserCommand(JTextField jLogin, JTextField jPassword, JTable jTable, JLabel jLabel,
-			DefaultTableModel tModel) {
+	public UpdateUserCommand(JTextField jLogin, JTextField jPassword, JTable jTable, DefaultTableModel tModel,
+			String id) {
 		this.jLogin = jLogin;
 		this.jPassword = jPassword;
 		this.jTable = jTable;
-		this.jLabel = jLabel;
 		this.tModel = tModel;
+		this.id = id;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		String login = jLogin.getText();
 		String password = jPassword.getText();
-		int i = jTable.getSelectedRow();
-		String id = tModel.getValueAt(i, 0).toString();
 		ServiceFactory serviceFactory = ServiceFactory.getInstance();
 		UserService userService = serviceFactory.getUserServie();
 		try {
 			userService.updateUser(login, password, id);
-			jLabel.setBackground(Color.GREEN);
-			jLabel.setText("ѕользователь успешно обновлен");
 		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "„то то пошло совершенно не так");
+			logger.error("что то пошло совершенно не так");
 		}
 	}
 

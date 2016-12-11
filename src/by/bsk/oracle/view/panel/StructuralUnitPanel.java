@@ -91,7 +91,7 @@ public class StructuralUnitPanel extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					Object item = comboBox.getSelectedItem();
 					int value = ((PriceCategory) item).getIdPrice();
-					tModel = ShowJTable.StructuralUnitTable(value);
+					tModel = ShowJTable.structuralUnitTable(value);
 					table.setModel(tModel);
 					table.getColumnModel().getColumn(0).setMinWidth(0);
 					table.getColumnModel().getColumn(0).setMaxWidth(0);

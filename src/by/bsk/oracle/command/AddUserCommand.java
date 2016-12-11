@@ -6,16 +6,25 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.bsk.oracle.domain.User;
 import by.bsk.oracle.service.UserService;
+import by.bsk.oracle.service.exception.ServiceException;
 import by.bsk.oracle.service.exception.user.WrongLoginServiceException;
 import by.bsk.oracle.service.exception.user.WrongPasswordServiceException;
 import by.bsk.oracle.service.factory.ServiceFactory;
 
 public class AddUserCommand implements ActionListener {
+
+	private static final Logger logger = LogManager.getLogger(AddUserCommand.class);
+
 	private JTextField jLogin;
 	private JTextField jPassword;
 	private JLabel jLabel;
@@ -26,7 +35,6 @@ public class AddUserCommand implements ActionListener {
 
 	public AddUserCommand(JTextField jLogin, JTextField jPassword, JLabel jLabel, JTable jTable,
 			DefaultTableModel jTableModel, JComboBox<String> jComboBox, int idDivision) {
-		super();
 		this.jLogin = jLogin;
 		this.jPassword = jPassword;
 		this.jLabel = jLabel;
@@ -72,8 +80,9 @@ public class AddUserCommand implements ActionListener {
 		} catch (WrongPasswordServiceException e) {
 			jLabel.setForeground(Color.RED);
 			jLabel.setText("ѕароль пользовател€ не должен быть пустым или >10 символов");
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (ServiceException e) {
+			JOptionPane.showMessageDialog(null, "„то то пошло совершенно не так");
+			logger.error("что то пошло совершенно не так");
 		}
 
 	}

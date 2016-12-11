@@ -20,6 +20,7 @@ import by.bsk.oracle.view.frame.AdminFrame;
 import by.bsk.oracle.view.frame.LogInFrame;
 import by.bsk.oracle.view.frame.RootAdminFrame;
 import by.bsk.oracle.view.frame.UserFrame;
+import by.bsk.oracle.view.util.TextFile;
 
 public class LogInUserCommand implements ActionListener {
 
@@ -83,7 +84,7 @@ public class LogInUserCommand implements ActionListener {
 	}
 
 	private void CreateConfigFile(User user) throws IOException {
-		FileOutputStream fos = new FileOutputStream("temp.txt");
+		FileOutputStream fos = new FileOutputStream(TextFile.SESSION_FILE);
 		ObjectOutputStream outputStream = new ObjectOutputStream(fos);
 		outputStream.writeObject(user);
 		outputStream.flush();

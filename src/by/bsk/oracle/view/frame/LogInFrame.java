@@ -45,6 +45,7 @@ public class LogInFrame extends JFrame {
 		setTitle(resourceBundle.getString(Field.APPLICATION_TITLE));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		setLocationRelativeTo(null);
 	}
 
 	private void createFrame() {

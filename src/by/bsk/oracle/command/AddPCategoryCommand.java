@@ -5,14 +5,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.bsk.oracle.service.PriceCategorySevice;
+import by.bsk.oracle.service.exception.ServiceException;
 import by.bsk.oracle.service.factory.ServiceFactory;
 
 public class AddPCategoryCommand implements ActionListener {
+	private static final Logger logger = LogManager.getLogger(AddPCategoryCommand.class);
 	private JTextField jTextField;
 	private JLabel jLabel;
 	private JTable jTable;
@@ -40,8 +46,9 @@ public class AddPCategoryCommand implements ActionListener {
 			jTableModel.insertRow(jTable.getRowCount(), data);
 			jLabel.setForeground(Color.GREEN);
 			jLabel.setText("ѕользователь успешно добавлен");
-		} catch (Exception e1) {
-			// TODO: handle exception
+		} catch (ServiceException e1) {
+			JOptionPane.showMessageDialog(null, "„то то пошло совершенно не так");
+			logger.error("что то пошло совершенно не так");
 		}
 	}
 

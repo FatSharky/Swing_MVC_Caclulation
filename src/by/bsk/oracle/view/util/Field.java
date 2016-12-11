@@ -45,4 +45,12 @@ public final class Field {
 	public static final String RECIPE_PANEL_EDIT_INFO = "recipePanel.updateInfo";
 	public static final String RECIPE_PANEL_DELETE_INFO = "recipePanel.deleteInfo";
 
+	public static final String ROOT_ADMIN_FRAME_TITLE = "rootAdminFrame.title";
+	public static final String ROOT_ADMIN_FRAME_MENU_ITEM = "rootAdminFrame.menuItem";
+	public static final String ROOT_ADMIN_BUTTON_ADMIN = "rootAdminFrame.bAddAdmin";
+
+	public static final String ADD_PRICE_DIALOG_TITLE = "addPCategoryDialog.title";
+	public static final String PRICE_DIALOG_NAME = "pCategoryDialog.labelName";
+
+	public static final String ADD_PRICE_DIALOG_BTN = "addPCategoryDialog.btn";
 }
